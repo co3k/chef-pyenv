@@ -6,14 +6,14 @@ resources and providers.
 
 ## pyenv Installed System-Wide with Pythons
 
-Most likely, this is the typical case. Include `recipe[rbenv::system]` in your
+Most likely, this is the typical case. Include `recipe[pyenv::system]` in your
 run\_list and override the defaults you want changed. See [below](#attributes)
 for more details.
 
 ## pyenv Installed For A Specific User with Rubies
 
 If you want a per-user install (like on a Mac/Linux workstation for
-development, CI, etc.), include `recipe[rbenv::user]` in your run\_list and
+development, CI, etc.), include `recipe[pyenv::user]` in your run\_list and
 add a user hash to the `user_installs` attribute list. For example:
 
     node.default['pyenv']['user_installs'] = [
@@ -125,11 +125,11 @@ to handle installing Pythons, invoking LWRPs, etc..
 
 ### system
 
-Installs the pyenv codebase system-wide (that is, into `/usr/local/rbenv`) and
+Installs the pyenv codebase system-wide (that is, into `/usr/local/pyenv`) and
 installs Pythons driven off attribute metadata. This recipe includes *default*
 and *system_install*.
 
-Use this recipe by itself if you want rbenv installed system-wide with rubies
+Use this recipe by itself if you want pyenv installed system-wide with rubies
 installed.
 
 ### user_install
@@ -143,7 +143,7 @@ isolation but want each user to handle installing Pythons, invoking LWRPs, etc.
 ### user
 
 Installs the pyenv codebase for a list of users (selected from the
-`node['rbenv']['user_installs']` hash) and installs rubies driven off attribte
+`node['pyenv']['user_installs']` hash) and installs rubies driven off attribte
 metadata. This recipe includes *default* and *user_install*.
 
 Use this recipe by itself if you want pyenv installed for specific users in
@@ -313,7 +313,7 @@ This resource sets the global version of Python to be used in all shells.
 
 ##### Set A Python As Global For A User
 
-    rbenv_global '3.3.2' do
+    pyenv_global '3.3.2' do
       user 'archie'
     end
 
@@ -369,7 +369,7 @@ notifies it.
       <td>name</td>
     </tr>
     <tr>
-      <td>rbenv_version</td>
+      <td>pyenv_version</td>
       <td>
         A version of Python being managed by pyenv.
       </td>
@@ -445,7 +445,7 @@ notifies it.
     <tr>
       <td>user</td>
       <td>
-        A users's isolated rbenv installation on which to apply an action. The
+        A users's isolated pyenv installation on which to apply an action. The
         default value of <code>nil</code> denotes a system-wide pyenv
         installation is being targeted. <b>Note:</b> if specified, the user
         must already exist.
@@ -536,7 +536,7 @@ notifies it.
     <tr>
       <td>root_path</td>
       <td>
-        The path prefix to rbenv installation, for example:
+        The path prefix to pyenv installation, for example:
         <code>/opt/pyenv</code>.
       </td>
       <td><code>nil</code></td>
@@ -546,11 +546,11 @@ notifies it.
 
 #### Examples
 
-##### Rehash A System-Wide rbenv
+##### Rehash A System-Wide pyenv
 
     pyenv_rehash 'Doing the rehash dance'
 
-##### Rehash A User's rbenv
+##### Rehash A User's pyenv
 
     pyenv_rehash "Rehashing archie's pyenv" do
       user 'archie'
